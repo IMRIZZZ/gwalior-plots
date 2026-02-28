@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Plots in Gwalior | Invest in Your Future</title>
+    <style>
+        /* Base Reset & Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Colors */
+        :root {
+            --primary-dark: #1a2a3a;
+            --accent-gold: #d4af37;
+            --text-light: #ffffff;
+            --bg-gray: #eef2f5;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a:hover {
+            color: var(--accent-gold);
+            transition: color 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 42, 58, 0.85), rgba(26, 42, 58, 0.85)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        .cta-btn {
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .cta-btn:hover {
+            background-color: #c19b2e;
+            transform: translateY(-3px);
+        }
+
+        /* Features/Why Gwalior */
+        .features {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 3rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border-bottom: 4px solid var(--accent-gold);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        .feature-card h3 {
+            color: var(--primary-dark);
+            margin: 1rem 0;
+        }
+
+        /* Plots Gallery */
+        .plots {
+            background-color: var(--bg-gray);
+            padding: 5rem 5%;
+        }
+        .plot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .plot-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .plot-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .plot-info {
+            padding: 1.5rem;
+        }
+        .plot-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        .plot-tags {
+            display: flex;
+            gap: 10px;
+            margin: 1rem 0;
+        }
+        .tag {
+            background: var(--bg-gray);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            background-color: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4rem;
+            justify-content: space-between;
+        }
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        .contact-info h2 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+        .contact-card {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent-gold);
+            margin-top: 2rem;
+        }
+        .contact-card p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .contact-card strong {
+            color: var(--accent-gold);
+            margin-right: 10px;
+            width: 90px;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background: var(--bg-gray);
+            padding: 2.5rem;
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid var(--accent-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; /* Can add a hamburger menu with JS later */
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .contact {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">GWALIOR PRIME PLOTS</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Why Invest</a></li>
+                <li><a href="#plots">Available Plots</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Secure Your Future in Gwalior</h1>
+        <p>Premium residential and commercial plots in Gwalior's fastest-growing corridors. Clear titles, prime locations, and unmatched ROI.</p>
+        <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Inquire Now</button>
+    </section>
+
+    <section id="features" class="features">
+        <h2 class="section-title">Why Invest With Us?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Clear Documentation</h3>
+                <p>100% verified properties with absolutely clear titles. We handle the legal legwork so you can invest with total peace of mind.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Prime Locations</h3>
+                <p>Strategically located near developing hubs, schools, and major highways connecting the city center to emerging residential zones.</p>
+            </div>
+            <div class="feature-card">
+                <h3>High ROI Potential</h3>
+                <p>Gwalior's real estate market is booming. Secure land now to benefit from rapid infrastructure development and high appreciation rates.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="plots" class="plots">
+        <h2 class="section-title" style="text-align: center;">Featured Properties</h2>
+        <div class="plot-grid">
+            <div class="plot-card">
+                <img src="https://images.unsplash.com/photo-1584738766473-61c083514bf4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plot Land">
+                <div class="plot-info">
+                    <h3>Premium Residential Plot</h3>
+                    <p>Perfect for building your dream home or a multi-story apartment.</p>
+                    <div class="plot-tags">
+                        <span class="tag">1200 Sq.Ft</span>
+                        <span class="tag">East Facing</span>
+                    </div>
+                </div>
+            </div>
+            <div class="plot-card">
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Commercial Land">
+                <div class="plot-info">
+                    <h3>Main Road Commercial Site</h3>
+                    <p>High visibility area, ideal for shops, showrooms, or mixed-use development.</p>
+                    <div class="plot-tags">
+                        <span class="tag">2400 Sq.Ft</span>
+                        <span class="tag">Corner Plot</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-info">
+            <h2>Let's Find Your Plot</h2>
+            <p>Ready to make a smart investment? Get in touch directly to schedule a site visit or request our latest property catalog.</p>
+            
+            <div class="contact-card">
+                <p><strong>Name:</strong> Sewan Qureshi</p>
+                <p><strong>Mobile No:</strong> <a href="tel:+918839384410" style="color: white; text-decoration: underline;">8839384410</a></p>
+                <p><strong>E-mail:</strong> <a href="mailto:sewankhan35@gmail.com" style="color: white; text-decoration: underline;">sewankhan35@gmail.com</a></p>
+                <p><strong>Location:</strong> Gwalior, Madhya Pradesh</p>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary-dark);">Request a Callback</h3>
+            <form onsubmit="event.preventDefault(); alert('In a live environment, this would send an email to sewankhan35@gmail.com!');">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Your Mobile Number" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Tell us what size plot you are looking for..." required></textarea>
+                </div>
+                <button type="submit" class="cta-btn" style="width: 100%;">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Gwalior Prime Plots. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
