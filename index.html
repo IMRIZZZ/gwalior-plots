@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gwalior Prime Plots | Premium Township Living</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #0f172a; /* Deep luxury navy */
+            --gold: #d4af37; /* Premium gold */
+            --gold-hover: #b5952f;
+            --bg-light: #f8fafc;
+            --text-dark: #334155;
+            --text-light: #f1f5f9;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4, .logo {
+            font-family: 'Playfair Display', serif;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        /* Scroll Reveal Utility Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header / Navigation */
+        header {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        .logo {
+            font-size: 1.8rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+        nav a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            color: var(--text-light);
+            margin-top: 0;
+        }
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #cbd5e1;
+            font-weight: 300;
+        }
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 15px 35px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--primary);
+            border: none;
+            animation: pulse 2s infinite;
+        }
+        .btn-primary:hover {
+            background-color: var(--gold-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+        }
+        .btn-outline:hover {
+            background-color: var(--text-light);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Section Titles */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .section-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .divider {
+            height: 3px;
+            width: 80px;
+            background-color: var(--gold);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Features / Why Us */
+        .features {
+            padding: 6rem 5%;
+            background-color: #ffffff;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            background: var(--bg-light);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: var(--transition);
+            transform-origin: left;
+        }
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            background: #ffffff;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Properties Section */
+        .properties {
+            padding: 6rem 5%;
+            background-color: var(--bg-light);
+        }
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .property-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .property-img {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+        .property-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .property-card:hover .property-img img {
+            transform: scale(1.08);
+        }
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+        .property-content {
+            padding: 2rem;
+        }
+        .property-content h3 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .property-content p {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .tag {
+            background: #f1f5f9;
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tag i { color: var(--gold); }
+        .property-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .inquire-link {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s;
+        }
+        .property-card:hover .inquire-link {
+            gap: 12px;
+        }
+
+        /* Direct Contact Section */
+        .contact {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e293b 100%);
+            color: var(--text-light);
+            text-align: center;
+        }
+        .contact-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .contact-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+        .contact-box > p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+        }
+        .agent-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            border-bottom: 3px solid var(--gold);
+        }
+        .agent-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .agent-details p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+        }
+        .contact-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .contact-pill:hover {
+            background: var(--gold);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        .contact-pill i {
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+        .contact-pill:hover i {
+            color: var(--primary);
+        }
+
+        /* Floating Action Buttons (CRUCIAL FOR CONVERSION) */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .fab-whatsapp {
+            background-color: #25D366;
+        }
+        .fab-whatsapp:hover {
+            background-color: #1ebe57;
+            transform: scale(1.1);
+        }
+        .fab-call {
+            background-color: var(--gold);
+            color: var(--primary);
+        }
+        .fab-call:hover {
+            background-color: var(--gold-hover);
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #070b14;
+            color: #94a3b8;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            /* Added bottom padding so floating buttons don't overlap text on mobile */
+            padding-bottom: 100px; 
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1rem; }
+            .btn-group { flex-direction: column; }
+            .section-header h2 { font-size: 2.2rem; }
+            .contact-pill { width: 100%; justify-content: center; }
+            .fab-container { bottom: 20px; right: 20px; }
+            .fab { width: 50px; height: 50px; font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="logo">
+            <i class="fa-solid fa-building-user"></i> GWALIOR PRIME
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#township">The Township</a></li>
+                <li><a href="#plots">Properties</a></li>
+                <li><a href="#contact">Contact Sewan</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <span class="badge">Premium Real Estate</span>
+            <h1>Build Your Legacy in Gwalior</h1>
+            <p>Don't just buy land. Invest in a fully developed, secure township designed for modern living. Unmatched amenities, prime locations, and incredible ROI await.</p>
+            <div class="btn-group">
+                <a href="#plots" class="btn btn-primary">View Available Plots</a>
+                <a href="tel:+918964087211" class="btn btn-outline"><i class="fa-solid fa-phone"></i> Call Sewan Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="township" class="features">
+        <div class="section-header reveal">
+            <h2>A Fully Developed Lifestyle</h2>
+            <div class="divider"></div>
+            <p style="margin-top: 15px;">Every plot in our township is engineered to provide the perfect foundation for your residential or commercial dreams.</p>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-card reveal">
+                <i class="fa-solid fa-road feature-icon"></i>
+                <h3>Fully Developed Township</h3>
+                <p>Move into a completely ready-to-build environment featuring wide concrete roads, secure boundary walls, and immediate utility connections.</p>
+            </div>
+            <div class="feature-card reveal">
+                <i class="fa-solid fa-compass feature-icon"></i>
+                <h3>Perfect Orientations</h3>
+                <p>Highly sought-after East-West facing plots, meticulously planned for maximum natural light, ventilation, and strict Vastu compliance.</p>
+            </div>
+            <div class="feature-card reveal">
+                <i class="fa-solid fa-tree-city feature-icon"></i>
+                <h3>The Best Amenities</h3>
+                <p>Experience premium living with landscaped parks, secure entry gates, proper drainage systems, and dedicated commercial zones.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="plots" class="properties">
+        <div class="section-header reveal">
+            <h2>Explore Investment Options</h2>
+            <div class="divider"></div>
+            <p style="margin-top: 15px;">We offer flexible sizing for every budget. Choose the perfect foundation for your future.</p>
+        </div>
+
+        <div class="property-grid">
+            <div class="property-card reveal">
+                <div class="property-img">
+                    <span class="status-badge">Fast Selling</span>
+                    <img src="https://images.unsplash.com/photo-1584738766473-61c083514bf4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium Residential Plot">
+                </div>
+                <div class="property-content">
+                    <h3>Multi-Size Residential Plots</h3>
+                    <p>Secure your family's future in a peaceful, amenity-rich environment perfect for building a custom dream home.</p>
+                    <div class="tags">
+                        <span class="tag"><i class="fa-solid fa-ruler-combined"></i> Flexible Sizing</span>
+                        <span class="tag"><i class="fa-solid fa-sun"></i> East-West Facing</span>
+                        <span class="tag"><i class="fa-solid fa-shield-halved"></i> Secure Zone</span>
+                    </div>
+                    <div class="property-footer">
+                        <a href="https://wa.me/918964087211?text=Hi%20Sewan,%20I%20am%20interested%20in%20the%20Multi-Size%20Residential%20Plots%20in%20Gwalior." target="_blank" class="inquire-link">Ask about pricing <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-card reveal">
+                <div class="property-img">
+                    <span class="status-badge" style="background: #10b981; color: white;">High ROI</span>
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Commercial Plot">
+                </div>
+                <div class="property-content">
+                    <h3>Multi-Size Commercial Plots</h3>
+                    <p>Prime, high-visibility locations situated along the main arteries of the township. Ideal for modern retail and businesses.</p>
+                    <div class="tags">
+                        <span class="tag"><i class="fa-solid fa-store"></i> High Footfall</span>
+                        <span class="tag"><i class="fa-solid fa-road"></i> Main Road Access</span>
+                        <span class="tag"><i class="fa-solid fa-chart-line"></i> Great ROI</span>
+                    </div>
+                    <div class="property-footer">
+                        <a href="https://wa.me/918964087211?text=Hi%20Sewan,%20I%20am%20interested%20in%20the%20Multi-Size%20Commercial%20Plots%20in%20Gwalior." target="_blank" class="inquire-link">Ask about pricing <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-box reveal">
+            <h2>Ready to Secure Your Plot?</h2>
+            <p>Don't miss out on Gwalior's most rapidly appreciating real estate. Have a doubt? Want to see the layout? Contact us directly right now.</p>
+            
+            <div class="agent-card">
+                <div class="agent-details">
+                    <h3>Sewan Qureshi</h3>
+                    <p>Senior Property Consultant</p>
+                </div>
+                
+                <div class="contact-methods">
+                    <a href="tel:+918964087211" class="contact-pill">
+                        <i class="fa-solid fa-phone-volume"></i> +91 8964087211
+                    </a>
+                    <a href="https://wa.me/918964087211" target="_blank" class="contact-pill">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp Me
+                    </a>
+                    <a href="mailto:sewankhan35@gmail.com" class="contact-pill">
+                        <i class="fa-solid fa-envelope"></i> Email Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fab-container">
+        <a href="https://wa.me/918964087211" target="_blank" class="fab fab-whatsapp" title="Chat on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:+918964087211" class="fab fab-call" title="Call Now">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Gwalior Prime Real Estate. Empowering Your Investments.</p>
+    </footer>
+
+    <script>
+        // Header background transparency on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(15, 23, 42, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.backgroundColor = 'rgba(15, 23, 42, 0.5)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Intersection Observer for Scroll Animations (Reveal Elements)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger once on load
+    </script>
+</body>
+</html>
