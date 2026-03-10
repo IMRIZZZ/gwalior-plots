@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flora | Premium Township Living</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0f172a; --gold: #d4af37; --gold-hover: #b5952f;
+            --bg-light: #f8fafc; --text-dark: #334155; --text-light: #f1f5f9;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body {
+            font-family: 'Poppins', sans-serif; background-color: var(--bg-light);
+            color: var(--text-dark); line-height: 1.7; overflow-x: hidden; scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; }
+
+        /* New Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes glow { 0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); } 50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.9); } 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
+
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        header {
+            background-color: rgba(15, 23, 42, 0.3); backdrop-filter: blur(15px); color: var(--text-light);
+            padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center;
+            position: fixed; width: 100%; top: 0; z-index: 1000; transition: var(--transition);
+        }
+        .logo { font-size: 1.8rem; color: var(--gold); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        nav ul { list-style: none; display: flex; gap: 2.5rem; }
+        nav a { font-weight: 500; font-size: 1rem; transition: var(--transition); position: relative; }
+        nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--gold); transition: var(--transition); }
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: var(--gold); text-shadow: 0 0 10px rgba(212,175,55,0.3); }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.9)), url('./gate.jpg') center/cover no-repeat;
+            background-attachment: fixed; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 0 20px; color: var(--text-light);
+        }
+        .hero-content { max-width: 800px; animation: fadeInUp 1.2s ease-out forwards; }
+        .badge {
+            display: inline-block; background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold);
+            color: var(--gold); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem;
+            font-weight: 600; margin-bottom: 25px; letter-spacing: 2px; text-transform: uppercase;
+            backdrop-filter: blur(5px);
+        }
+        .hero h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 25px; text-shadow: 2px 4px 8px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.2rem; margin-bottom: 40px; color: #e2e8f0; font-weight: 300; }
+        .btn-group { display: flex; gap: 20px; justify-content: center; }
+        .btn { padding: 15px 40px; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; }
+        .btn-primary { background-color: var(--gold); color: var(--primary); border: none; animation: glow 3s infinite; }
+        .btn-primary:hover { background-color: var(--text-light); transform: translateY(-5px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.4); }
+        .btn-outline { background-color: transparent; color: var(--text-light); border: 2px solid var(--text-light); }
+        .btn-outline:hover { background-color: var(--gold); color: var(--primary); border-color: var(--gold); transform: translateY(-5px); }
+
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
+        .section-header p { color: #64748b; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+        .divider { height: 4px; width: 100px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto; border-radius: 2px; }
+
+        .features { padding: 8rem 5%; background-color: #ffffff; }
+        .township-collage img { transition: var(--transition); }
+        .township-collage img:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
+        .feature-card {
+            background: var(--bg-light); padding: 3rem 2rem; border-radius: 15px; text-align: center;
+            transition: var(--transition); border: 1px solid #f1f5f9; position: relative; overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .feature-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--gold), #fcd34d); transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left;
+        }
+        .feature-card:hover::before { transform: scaleX(1); }
+        .feature-card:hover { transform: translateY(-15px); box-shadow: 0 25px 50px rgba(0,0,0,0.08); background: #ffffff; }
+        .feature-icon { font-size: 3.5rem; color: var(--gold); margin-bottom: 1.5rem; transition: var(--transition); }
+        .feature-card:hover .feature-icon { transform: scale(1.1) rotate(5deg); }
+        .feature-card h3 { font-size: 1.6rem; color: var(--primary); margin-bottom: 1rem; }
+        .feature-card p { color: #64748b; font-size: 1rem; }
+
+        .properties { padding: 8rem 5%; background-color: var(--bg-light); }
+        .property-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto; }
+        .property-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.05); transition: var(--transition); }
+        .property-card:hover { transform: translateY(-15px); box-shadow: 0 30px 60px rgba(0,0,0,0.12); }
+        .property-img { position: relative; overflow: hidden; height: 300px; }
+        .property-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .property-card:hover .property-img img { transform: scale(1.1); }
+        .status-badge { position: absolute; top: 20px; left: 20px; background: rgba(15, 23, 42, 0.9); color: var(--gold); padding: 8px 18px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; z-index: 1; border: 1px solid var(--gold); backdrop-filter: blur(4px); }
+        .property-content { padding: 2.5rem; }
+        .property-content h3 { font-size: 1.8rem; color: var(--primary); margin-bottom: 10px; }
+        .property-content p { color: #64748b; margin-bottom: 25px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #e2e8f0; }
+        .tag { background: #f8fafc; border: 1px solid #e2e8f0; color: var(--primary); padding: 8px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
+        .tag:hover { background: var(--gold); color: white; border-color: var(--gold); }
+        .tag i { color: var(--gold); }
+        .tag:hover i { color: white; }
+        .property-footer { display: flex; justify-content: space-between; align-items: center; }
+        .inquire-link { color: var(--primary); font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px; transition: var(--transition); padding: 10px 20px; background: #f1f5f9; border-radius: 8px; }
+        .inquire-link i { color: var(--gold); transition: var(--transition); }
+        .property-card:hover .inquire-link { background: var(--primary); color: white; }
+        .property-card:hover .inquire-link i { transform: translateX(5px); }
+
+        .contact { padding: 8rem 5%; background: linear-gradient(135deg, var(--primary) 0%, #070b14 100%); color: var(--text-light); text-align: center; position: relative; overflow: hidden; }
+        .contact::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 50%); animation: pulse 10s infinite alternate; }
+        .contact-box { max-width: 800px; margin: 0 auto; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 5rem 3rem; border-radius: 24px; backdrop-filter: blur(15px); position: relative; z-index: 2; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+        .contact-box h2 { font-size: 3rem; margin-bottom: 1.5rem; color: var(--gold); }
+        .contact-box > p { font-size: 1.15rem; color: #cbd5e1; margin-bottom: 3.5rem; }
+        .agent-card { background: rgba(0, 0, 0, 0.4); padding: 2.5rem; border-radius: 16px; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; border: 1px solid rgba(212,175,55,0.2); transition: var(--transition); }
+        .agent-card:hover { border-color: var(--gold); box-shadow: 0 0 30px rgba(212,175,55,0.1); }
+        .agent-details h3 { font-size: 2rem; margin-bottom: 0.5rem; color: white; }
+        .agent-details p { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; }
+        .contact-methods { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; width: 100%; }
+        .contact-pill { display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 255, 0.1); padding: 15px 30px; border-radius: 50px; font-size: 1.1rem; font-weight: 500; transition: var(--transition); border: 1px solid transparent; }
+        .contact-pill:hover { background: var(--gold); color: var(--primary); transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .contact-pill i { font-size: 1.4rem; color: var(--gold); }
+        .contact-pill:hover i { color: var(--primary); }
+
+        .fab-container { position: fixed; bottom: 40px; right: 40px; display: flex; flex-direction: column; gap: 20px; z-index: 9999; animation: float 4s ease-in-out infinite; }
+        .fab { width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: white; box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: var(--transition); cursor: pointer; }
+        .fab-whatsapp { background-color: #25D366; }
+        .fab-whatsapp:hover { background-color: #1ebe57; transform: scale(1.15) rotate(10deg); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4); }
+        .fab-call { background-color: var(--gold); color: var(--primary); }
+        .fab-call:hover { background-color: var(--gold-hover); transform: scale(1.15) rotate(-10deg); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4); }
+        
+        footer { background-color: #04070d; color: #64748b; text-align: center; padding: 2.5rem; font-size: 1rem; padding-bottom: 120px; }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; } .hero h1 { font-size: 3rem; } .hero p { font-size: 1.1rem; }
+            .btn-group { flex-direction: column; } .section-header h2 { font-size: 2.5rem; }
+            .contact-pill { width: 100%; justify-content: center; } .fab-container { bottom: 20px; right: 20px; }
+            .fab { width: 55px; height: 55px; font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useEffect } = React;
+
+        function App() {
+            useEffect(() => {
+                const handleScroll = () => {
+                    const header = document.getElementById('header');
+                    if (window.scrollY > 50) {
+                        header.style.backgroundColor = 'rgba(15, 23, 42, 0.95)';
+                        header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+                    } else {
+                        header.style.backgroundColor = 'rgba(15, 23, 42, 0.3)';
+                        header.style.boxShadow = 'none';
+                    }
+                };
+
+                const reveal = () => {
+                    const reveals = document.querySelectorAll('.reveal');
+                    for (let i = 0; i < reveals.length; i++) {
+                        const windowHeight = window.innerHeight;
+                        const elementTop = reveals[i].getBoundingClientRect().top;
+                        const elementVisible = 120;
+                        if (elementTop < windowHeight - elementVisible) {
+                            reveals[i].classList.add('active');
+                        }
+                    }
+                };
+
+                window.addEventListener('scroll', handleScroll);
+                window.addEventListener('scroll', reveal);
+                reveal();
+
+                return () => {
+                    window.removeEventListener('scroll', handleScroll);
+                    window.removeEventListener('scroll', reveal);
+                };
+            }, []);
+
+            return (
+                <React.Fragment>
+                    <header id="header">
+                        <div className="logo">
+                            <i className="fa-solid fa-building-user"></i> FLORA
+                        </div>
+                        <nav>
+                            <ul>
+                                <li><a href="#home">Home</a></li>
+                                <li><a href="#township">The Township</a></li>
+                                <li><a href="#plots">Properties</a></li>
+                                <li><a href="#contact">Contact Sewan</a></li>
+                            </ul>
+                        </nav>
+                    </header>
+
+                    <section id="home" className="hero">
+                        <div className="hero-content">
+                            <span className="badge">By The House Of R.W. Group</span>
+                            <h1>Expect The Extraordinary</h1>
+                            <p>Don't just buy land. Invest in a fully developed, secure township designed for modern living. Unmatched amenities, prime locations, and incredible ROI await.</p>
+                            <div className="btn-group">
+                                <a href="#plots" className="btn btn-primary">View Available Plots</a>
+                                <a href="tel:+919329384410" className="btn btn-outline"><i className="fa-solid fa-phone"></i> Call Sewan Now</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="township" className="features">
+                        <div className="section-header reveal">
+                            <h2>Let The Relaxation & Good Times Bloom</h2>
+                            <div className="divider"></div>
+                            <p style={{ marginTop: '20px' }}>Every plot in our township is engineered to provide the perfect foundation for your residential or commercial dreams.</p>
+                        </div>
+                        
+                        <div className="township-collage reveal" style={{ textAlign: 'center', marginBottom: '60px' }}>
+                            <img src="./collage.jpg" alt="Flora Amenities" style={{ maxWidth: '100%', borderRadius: '20px', boxShadow: '0 15px 40px rgba(0,0,0,0.1)' }} />
+                        </div>
+
+                        <div className="feature-grid">
+                            <div className="feature-card reveal">
+                                <i className="fa-solid fa-road feature-icon"></i>
+                                <h3>Fully Developed Township</h3>
+                                <p>Move into a completely ready-to-build environment featuring wide concrete roads, secure boundary walls, and immediate utility connections.</p>
+                            </div>
+                            <div className="feature-card reveal">
+                                <i className="fa-solid fa-compass feature-icon"></i>
+                                <h3>Perfect Orientations</h3>
+                                <p>Highly sought-after East-West facing plots, meticulously planned for maximum natural light, ventilation, and strict Vastu compliance.</p>
+                            </div>
+                            <div className="feature-card reveal">
+                                <i className="fa-solid fa-tree-city feature-icon"></i>
+                                <h3>The Best Amenities</h3>
+                                <p>Experience premium living with landscaped parks, secure entry gates, proper drainage systems, and dedicated commercial zones.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="plots" className="properties">
+                        <div className="section-header reveal">
+                            <h2>Explore Investment Options</h2>
+                            <div className="divider"></div>
+                            <p style={{ marginTop: '20px' }}>We offer flexible sizing for every budget. Choose the perfect foundation for your future.</p>
+                        </div>
+
+                        <div className="property-grid">
+                            <div className="property-card reveal">
+                                <div className="property-img">
+                                    <span className="status-badge">Luxury & Calm</span>
+                                    <img src="./overview.jpg" alt="Premium Residential Plot" />
+                                </div>
+                                <div className="property-content">
+                                    <h3>Premium Residential Plots</h3>
+                                    <p>Secure your family's future in a peaceful, amenity-rich environment perfect for building a custom dream home.</p>
+                                    <div className="tags">
+                                        <span className="tag"><i className="fa-solid fa-ruler-combined"></i> Flexible Sizing</span>
+                                        <span className="tag"><i className="fa-solid fa-sun"></i> East-West Facing</span>
+                                        <span className="tag"><i className="fa-solid fa-shield-halved"></i> Secure Zone</span>
+                                    </div>
+                                    <div className="property-footer">
+                                        <a href="https://wa.me/919329384410?text=Hi%20Sewan,%20I%20am%20interested%20in%20the%20Premium%20Residential%20Plots%20at%20Flora." target="_blank" className="inquire-link">Ask about pricing <i className="fa-solid fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="property-card reveal">
+                                <div className="property-img">
+                                    <span className="status-badge" style={{ background: '#10b981', color: 'white', borderColor: '#10b981' }}>Lush Greenery</span>
+                                    <img src="./greenery.jpg" alt="Eco Friendly Plot" />
+                                </div>
+                                <div className="property-content">
+                                    <h3>Eco-Friendly Plots</h3>
+                                    <p>Imagine waking up to lush greenery every day. Prime locations situated along the main arteries of the township.</p>
+                                    <div className="tags">
+                                        <span className="tag"><i className="fa-solid fa-leaf"></i> Nature Surroundings</span>
+                                        <span className="tag"><i className="fa-solid fa-road"></i> Main Road Access</span>
+                                        <span className="tag"><i className="fa-solid fa-chart-line"></i> Great ROI</span>
+                                    </div>
+                                    <div className="property-footer">
+                                        <a href="https://wa.me/919329384410?text=Hi%20Sewan,%20I%20am%20interested%20in%20the%20Eco-Friendly%20Plots%20at%20Flora." target="_blank" className="inquire-link">Ask about pricing <i className="fa-solid fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="contact" className="contact">
+                        <div className="contact-box reveal">
+                            <h2>Ready to Secure Your Plot?</h2>
+                            <p>Don't miss out on Gwalior's most rapidly appreciating real estate at Flora. Have a doubt? Want to see the layout? Contact us directly right now.</p>
+                            
+                            <div className="agent-card">
+                                <div className="agent-details">
+                                    <h3>Sewan Qureshi</h3>
+                                    <p>Sales Executive</p>
+                                </div>
+                                
+                                <div className="contact-methods">
+                                    <a href="tel:+919329384410" className="contact-pill">
+                                        <i className="fa-solid fa-phone-volume"></i> +91 9329384410
+                                    </a>
+                                    <a href="https://wa.me/919329384410" target="_blank" className="contact-pill">
+                                        <i className="fa-brands fa-whatsapp"></i> WhatsApp Me
+                                    </a>
+                                    <a href="mailto:sewankhan35@gmail.com" className="contact-pill">
+                                        <i className="fa-solid fa-envelope"></i> Email Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="fab-container">
+                        <a href="https://wa.me/919329384410" target="_blank" className="fab fab-whatsapp" title="Chat on WhatsApp">
+                            <i className="fa-brands fa-whatsapp"></i>
+                        </a>
+                        <a href="tel:+919329384410" className="fab fab-call" title="Call Now">
+                            <i className="fa-solid fa-phone"></i>
+                        </a>
+                    </div>
+
+                    <footer>
+                        <p>&copy; 2026 Flora By The House Of R.W. Group. Empowering Your Investments.</p>
+                    </footer>
+                </React.Fragment>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
