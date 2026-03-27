@@ -41,7 +41,7 @@ All property inquiries routed through this landing page are directed to:
 * **Agent:** Sewan Qureshi
 * **Role:** Senior Property Consultant
 * **Location:** Gwalior, MP
-* **Phone/WhatsApp:** +91 8964087211
+* **Phone/WhatsApp:** +91 9329384410
 * **Email:** sewankhan35@gmail.com
 
 ---
