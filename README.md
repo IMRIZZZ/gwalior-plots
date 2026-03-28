@@ -10,7 +10,7 @@ A premium, high-converting, single-page website designed to showcase and sell fu
 Built with pure HTML, CSS, and Vanilla JavaScript, this project is optimized for speed, mobile responsiveness, and direct client lead generation without the need for a heavy backend.
 
 ## 🔗 Live Website Link
-**[Click here to view the live website]([https://imrizzz.github.io/gwalior-plots/](https://sewan-gwalior.vercel.app/))** 
+**[Click here to view the live website](https://sewan-gwalior.vercel.app/)** 
 
 ---
 
