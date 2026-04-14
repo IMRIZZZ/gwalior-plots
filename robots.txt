@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sewan-gwalior.vercel.app/sitemap.xml
